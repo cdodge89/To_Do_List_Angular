@@ -13,27 +13,38 @@
 	<body ng-app='todoDisplay'>
 		<div class='container' id='display'>
 			<table ng-controller='TodoController as todos'>
+				<button ng-click='todos.resetEdit()'>Cancel Edit</button>
 				<tr>
 					<th>Title</th>
 					<th>Description</th>
 				</tr>
 				<tr>
-					<form>
+					<form name='taskForm' ng-submit='todos.addTask()'>
 						<td>
-							<input type='text' ng-model='todos.newTodo.title'>
+							<input type='text' ng-model='todos.newTodo.title' class="form-control">
 						</td>
 						<td>
 							<input type='text' ng-model='todos.newTodo.description'>
 						</td>
-						<input type="submit" value="Submit Task" />
+						<input type="submit" value="Submit Task" class="form-control" />
 					</form>
 				</tr>
 				<tr ng-repeat='todo in todos.list'>
 					<td>
-						{{todo.title}}
+						<div ng-hide='todos.isSet(todo.id)'>{{todo.title}}</div>
+						<input ng-model-'todos.currentItem.title' ng-show='todos.isSet(todo.id)'/>
 					</td>
 					<td>
-						{{todo.description}}
+						<div ng-hide='todos.isSet(todo.id)'>{{todo.description}}</div>
+						<input ng-model-'todos.currentItem.description' ng-show='todos.isSet(todo.id)'/>
+					</td>
+					<td>
+						<button ng-click='todos.remove(todo.id)'>Delete</button>
+					</td>
+					<td>
+						<button ng-click='todos.setEdit(todo)' ng-hide='todos.isSet(todo.id)'>Edit</button>
+						<button ng-click='todos.saveEdit(todo)' ng-show='todos.isSet(todo.id)'>Save</button>
+
 					</td>
 				</tr>
 			</table>

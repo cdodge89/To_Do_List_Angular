@@ -6,7 +6,8 @@
 			service = {
 				test: test,
 				list: list,
-				 add: add,
+				add: add,
+				remove: remove
 			}
 			return service
 
@@ -20,6 +21,10 @@
 
 			function add(title,description){
 				return $http.post('http://secret-escarpment-99471.herokuapp.com/item', {title:title, description:description});
+			}
+
+			function remove(id){
+				return $http.delete('http://secret-escarpment-99471.herokuapp.com/item/'+id);
 			}
 		}
 })();
