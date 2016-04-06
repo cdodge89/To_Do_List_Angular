@@ -14,17 +14,20 @@
 			//bound variables
 			vm.newTodo = {};
 			vm.editMode = null;
-			vm.currentItem = {};
+			vm.currentItem = null;
 
 			init();
 			//bound function implementations
 			function addTask(){
-				Item.add(vm.newTodo.title, vm.newTodo.description).then(function(response){
-					vm.newTodo.id = response.data;
-					vm.list.push(vm.newTodo);
-					vm.newTodo = {};
-					console.log(vm.list);
-				});
+				console.log(vm.newTodo.description);
+				if(vm.newTodo.description || vm.newTodo.title){
+					Item.add(vm.newTodo.title, vm.newTodo.description).then(function(response){
+						vm.newTodo.id = response.data;
+						vm.list.push(vm.newTodo);
+						vm.newTodo = {};
+						console.log(vm.list);
+					});
+				}
 			}
 			function remove(id){
 				Item.remove(id).then(function(){
