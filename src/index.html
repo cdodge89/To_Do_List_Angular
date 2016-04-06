@@ -10,10 +10,10 @@
 		<script type="text/javascript" src='js/controllers.js'></script>
 		<script type="text/javascript" src='js/services.js'></script>
 	</head>
-	<body ng-app='todoDisplay'>
+	<body ng-app='todoDisplay' ng-controller='TodoController as todos'>
 		<div class='container' id='display'>
-			<table ng-controller='TodoController as todos'>
-				<button ng-click='todos.resetEdit()'>Cancel Edit</button>
+			<button ng-click="todos.resetEdit()">Cancel Edit</button>
+			<table>
 				<tr>
 					<th>Title</th>
 					<th>Description</th>
@@ -31,20 +31,19 @@
 				</tr>
 				<tr ng-repeat='todo in todos.list'>
 					<td>
-						<div ng-hide='todos.isSet(todo.id)'>{{todo.title}}</div>
-						<input ng-model-'todos.currentItem.title' ng-show='todos.isSet(todo.id)'/>
+						<div ng-hide='todo.id===todos.editMode'>{{todo.title}}</div>
+						<input ng-model='todos.currentItem.title' ng-show='todo.id===todos.editMode'/>
 					</td>
 					<td>
-						<div ng-hide='todos.isSet(todo.id)'>{{todo.description}}</div>
-						<input ng-model-'todos.currentItem.description' ng-show='todos.isSet(todo.id)'/>
+						<div ng-hide='todo.id===todos.editMode'>{{todo.description}}</div>
+						<input ng-model='todos.currentItem.description' ng-show='todo.id===todos.editMode'/>
 					</td>
 					<td>
 						<button ng-click='todos.remove(todo.id)'>Delete</button>
 					</td>
 					<td>
-						<button ng-click='todos.setEdit(todo)' ng-hide='todos.isSet(todo.id)'>Edit</button>
-						<button ng-click='todos.saveEdit(todo)' ng-show='todos.isSet(todo.id)'>Save</button>
-
+						<button ng-click='todos.setEdit(todo)' ng-hide='todo.id===todos.editMode'>Edit</button>
+						<button ng-click='todos.saveEdit(todo)' ng-show='todo.id===todos.editMode'>Save</button>
 					</td>
 				</tr>
 			</table>

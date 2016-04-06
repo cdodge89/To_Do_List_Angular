@@ -7,9 +7,10 @@
 				test: test,
 				list: list,
 				add: add,
-				remove: remove
-			}
-			return service
+				remove: remove,
+				update: update
+			};
+			return service;
 
 			function test(){
 				return 'Hello World';
@@ -25,6 +26,9 @@
 
 			function remove(id){
 				return $http.delete('http://secret-escarpment-99471.herokuapp.com/item/'+id);
+			}
+			function update(updatedObj){
+				return $http.put('http://secret-escarpment-99471.herokuapp.com/item/'+updatedObj.id, updatedObj);
 			}
 		}
 })();
