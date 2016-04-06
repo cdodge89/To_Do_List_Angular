@@ -37,7 +37,7 @@
 			}
 			function setEdit(todo){
 				vm.editMode = todo.id;
-				vm.currentItem = todo;
+				vm.currentItem = angular.copy(todo); //this break the reference chain, so it isn't a direct reference to the object, it make a deep copy of the object.
 				console.log(vm.currentItem);
 			}
 			function isSet(id){
